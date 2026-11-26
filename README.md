@@ -1,63 +1,76 @@
-# DocuScan AI Agent
+# DocuScan Autonomous OCR & Document Agent
 
-Autonomous document intelligence agent built for parsing, analyzing, and answering multi-turn queries across complex PDF documents. Powered by PyMuPDF, LiteLLM, and Chainlit for conversational document interactions.
+> Autonomous document intelligence, layout-aware OCR parsing, and context routing agent powered by multimodal vision and LLM parsing.
 
----
+## 1. System Overview
 
-### Architecture & Capabilities
+DocuScan AI is an autonomous document processing agent designed to eliminate manual data entry from complex business documents. It ingests invoices, receipts, regulatory forms, and technical manuals, leverages multimodal vision models for layout analysis, extracts structured Pydantic schemas, and routes normalized records into backend databases.
 
-- **Document Parsing Engine:** High-fidelity text and layout extraction using PyMuPDF (`fitz`).
-- **Context Routing & Memory:** Session-scoped context storage with persistent multi-turn conversational history.
-- **Model Agnostic Backend:** LLM completions managed via LiteLLM targeting Google Gemini with strict schema enforcement.
-- **Conversational Interface:** Responsive streaming web UI powered by Chainlit with file drop upload.
+## 2. Technical Architecture
 
----
-
-### Project Structure
-
-```text
-├── main.py              # Application entry point, session lifecycle, and Chainlit handlers
-├── pyproject.toml       # Python package configuration and dependencies
-├── requirements.txt     # Locked production dependencies
-├── Procfile             # Deployment configuration for production hosts
-├── .env.example         # Environment variable template
-└── chainlit.md          # Chainlit session header configuration
+```
+[ Unstructured Document (PDF / Image) ]
+        │
+        ▼
+[ Multimodal Vision OCR Engine ]
+        │
+        ▼
+[ Layout Analysis & Semantic Chunking ]
+        │
+        ▼
+[ LLM Extraction & Pydantic Validation ]
+        │
+        ▼
+[ Normalized JSON Schema + Context Router ]
 ```
 
----
+### Technology Stack
+- **Core Runtime:** Python 3.10+
+- **Vision & LLM:** Google Gemini Multimodal Vision API
+- **Interface:** Chainlit interactive document workbench (`chainlit.md`, `.chainlit/`)
+- **Package Management:** uv / pyproject.toml
+- **Deployment:** Procfile ready for cloud container runtimes
 
-### Installation & Setup
+## 3. Core Functional Capabilities
 
-1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/Yusra-Saleem/DocuScan-AI-Agent.git
-   cd DocuScan-AI-Agent
-   ```
+- **Layout-Aware Extraction:** Identifies and parses tabular line items, tax subtotals, vendor metadata, and dates from unstructured documents.
+- **Strict Schema Enforcement:** Validates extracted fields against Pydantic models with automated type coercion and missing field flags.
+- **Interactive Workbench:** Chainlit-powered visual chat interface allowing operators to upload documents and inspect extraction confidence scores.
+- **Security Hardening:** Sanitized `.env.example` templates; zero API keys committed to version control.
 
-2. **Create a virtual environment:**
-   ```bash
-   python -m venv .venv
-   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
-   ```
+## 4. Directory Structure
 
-3. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
+```
+docuscan-ai/
+├── main.py                   # Document processing engine and entry point
+├── chainlit.md               # Interactive UI branding and workbench layout
+├── pyproject.toml            # Modern Python package dependencies
+├── requirements.txt          # Standard pip dependency manifest
+├── Procfile                  # Production cloud deployment directive
+└── .env.example              # Sanitized environment configuration
+```
 
-4. **Configure environment:**
-   ```bash
-   cp .env.example .env
-   # Add your GEMINI_API_KEY to .env
-   ```
+## 5. Getting Started
 
-5. **Run the application:**
-   ```bash
-   chainlit run main.py -w
-   ```
+```bash
+git clone https://github.com/Yusra-Saleem/docuscan-ai.git
+cd docuscan-ai
 
----
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-### License
+pip install -r requirements.txt
+cp .env.example .env
+```
 
-MIT License. Designed and maintained by Yusra Saleem.
+Add your `GEMINI_API_KEY` in `.env`, then launch the workbench:
+
+```bash
+chainlit run main.py -w
+```
+
+## 6. Author and License
+
+- **Author:** Yusra Saleem
+- **Portfolio:** [yusrasaleem.dev](https://yusrasaleem.dev)
+- **License:** Licensed under the [MIT License](LICENSE).
