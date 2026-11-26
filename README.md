@@ -61,11 +61,7 @@ source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 pip install -r requirements.txt
 cp .env.example .env
-```
 
-Add your `GEMINI_API_KEY` in `.env`, then launch the workbench:
-
-```bash
 chainlit run main.py -w
 ```
 
